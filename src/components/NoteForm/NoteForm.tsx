@@ -18,7 +18,7 @@ interface NoteFormProps {
 const initialValues: NoteFormValuesProps = {
   title: "",
   content: "",
-  tag: "",
+  tag: "Todo",
 };
 
 const OrderFormSchema = Yup.object().shape({
@@ -40,6 +40,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["myNoteHubKey"] });
+      onClose();
     },
   });
 
@@ -52,8 +53,7 @@ export default function NoteForm({ onClose }: NoteFormProps) {
     actions: FormikHelpers<NoteFormValuesProps>
   ) => {
     handleCreateNote(values);
-    onClose();
-    actions.resetForm();
+      actions.resetForm();
   };
 
   return (
