@@ -27,7 +27,12 @@ const OrderFormSchema = Yup.object().shape({
     .max(50, "Name is too long")
     .required("Title is required"),
   content: Yup.string().max(500, "Too long"),
-  tag: Yup.string().required("Please choose your tag"),
+  tag: Yup.string()
+    .oneOf(
+      ["Todo", "Work", "Personal", "Meeting", "Shopping"],
+      "Please select a valid tag"
+    )
+    .required("Please choose your tag"),
 });
 
 export default function NoteForm({ onClose }: NoteFormProps) {
